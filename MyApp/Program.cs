@@ -9,6 +9,7 @@ Random rnd = new Random();
 char salida;
 int num = 1;
 char realizosn;
+int hsTrabajadas = 0;
 
 
 Console.WriteLine("\n----------CARGA DE TAREAS----------");
@@ -36,6 +37,8 @@ do
 // main ahre
 
 cambiarEstado(tareasPendientes);
+Console.WriteLine($"\n\n-------------------------------------");
+Console.WriteLine($"\n\nSumario de horas trabajadas: " + hsTrabajadas);
 busqueda(tareasPendientes);
 
 
@@ -75,6 +78,7 @@ void cambiarEstado(List<Tarea> listadoTareas)
         {
             tareasRealizadas.Add(TareaX);
             Console.WriteLine("\nTarea completada con éxito");
+            hsTrabajadas = hsTrabajadas + TareaX.Duracion;
         }
 
         tareasPendientes = tareasPendientes.Except(tareasRealizadas).ToList();
