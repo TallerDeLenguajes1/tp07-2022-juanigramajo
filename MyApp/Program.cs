@@ -29,14 +29,14 @@ do
 
     num++;
 
-} while ((salida != 'n') && (salida != 'N'));
+} while ((salida != 'n'));
 
 
 
-
+// main ahre
 
 cambiarEstado(tareasPendientes);
-
+busqueda(tareasPendientes);
 
 
 
@@ -71,7 +71,7 @@ void cambiarEstado(List<Tarea> listadoTareas)
             realizosn = Char.ToLower(Convert.ToChar(Console.ReadLine()));
         }
 
-        if((realizosn == 's') || (realizosn == 'S'))
+        if((realizosn == 's'))
         {
             tareasRealizadas.Add(TareaX);
             Console.WriteLine("\nTarea completada con éxito");
@@ -79,4 +79,60 @@ void cambiarEstado(List<Tarea> listadoTareas)
 
         tareasPendientes = tareasPendientes.Except(tareasRealizadas).ToList();
     }
+}
+
+void busqueda(List<Tarea> listadoTareas)
+{
+    int controller = 0;
+
+    Console.WriteLine($"\n\n-------------------------------------");
+    Console.WriteLine("\n\n¿Quiere buscar una tarea pendiente?\nOPCIONES:\n[S] SI\n[N] NO\nIngrese una opción: ");
+    char buscarsn = Char.ToLower(Convert.ToChar(Console.ReadLine()));
+
+    while ((buscarsn != 's') && (buscarsn != 'n'))
+    {
+        Console.WriteLine("\nError de formato.\n¿Quiere buscar una tarea pendiente?\nOPCIONES:\n[S] SI\n[N] NO\nIngrese una opción: ");
+        buscarsn = Char.ToLower(Convert.ToChar(Console.ReadLine()));
+    }
+
+    while(buscarsn == 's')
+    {
+        Console.WriteLine("\nIngrese una descripcion de la tarea pendiente que busca: ");
+        string descBusqueda = Console.ReadLine();
+
+        foreach(Tarea tareabuscar in listadoTareas)
+        {
+            if(tareabuscar.Descripcion.Contains(descBusqueda))
+            {
+                Console.WriteLine($"\n\n-------------------------------------");
+                Console.WriteLine($"\nTareas encontradas:");
+                tareabuscar.MostrarTarea();
+                controller++;
+                buscarsn = buscarOtra();
+            }
+        }
+
+        if (controller == 0)
+        {
+            Console.WriteLine("\n\n\nNo hay tareas pendientes con esa descripción");
+            buscarsn = buscarOtra();
+        }
+    }
+
+    Console.WriteLine($"\n\nSee ya soon!\n");
+}
+
+
+char buscarOtra(){
+
+    Console.WriteLine("\n¿Quiere buscar otra tarea pendiente?\nOPCIONES:\n[S] SI\n[N] NO\nIngrese una opción: ");
+    char buscarsn = Char.ToLower(Convert.ToChar(Console.ReadLine()));
+
+    while ((buscarsn != 's') && (buscarsn != 'n'))
+    {
+        Console.WriteLine("\nError de formato.\n¿Quiere buscar otra tarea pendiente?\nOPCIONES:\n[S] SI\n[N] NO\nIngrese una opción: ");
+        buscarsn = Char.ToLower(Convert.ToChar(Console.ReadLine()));
+    }
+
+    return buscarsn;
 }
